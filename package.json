@@ -14,7 +14,9 @@
     "express": "^4.15.4",
     "express-validator": "^3.2.1",
     "mustache-express": "^1.2.5",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "pg": "^7.2.0",
+    "sequelize": "^4.8.0"
   },
   "devDependencies": {},
   "repository": {

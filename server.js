@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const Busboy = require("busboy");
 const path = require("path");
 const fs = require("fs");
+const models = require("./models");
+
 const port = process.env.PORT || 8000;
 const app = express();
 
@@ -19,6 +21,18 @@ app.use(bodyParser.urlencoded({
 
 }));
 
+//SEQUELIZE
+const todo = models.todos.build(
+     {task:'Homework', complete: true}
+);
+
+todo.save().then( function(newTodo) {
+    console.log('task is: ',newTodo.task, ' complete = ', newTodo.complete);
+});
+
+
+//TODO LIST
+
 let todos = [];
 
 app.get("/", function (req, res) {
@@ -31,7 +45,6 @@ app.post("/newtodo", (req, res) => {
     let newTodo = req.body;
     newTodo.complete = false;
     todos.push(newTodo);
-    // console.log('todos: ', todos);
     res.redirect("/");
 });
 
@@ -47,4 +60,4 @@ app.post("/complete/:todo", (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
-  
+
