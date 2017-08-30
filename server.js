@@ -1,3 +1,4 @@
+//IMPORTS
 const express = require("express");
 const mustacheExpress = require("mustache-express");
 const bodyParser = require("body-parser");
@@ -5,12 +6,11 @@ const Busboy = require("busboy");
 const path = require("path");
 const fs = require("fs");
 const models = require("./models");
-
 const port = process.env.PORT || 8000;
 const app = express();
+const todo = models.todo;
 
-let user;
-
+//MIDDLEWARE
 app.engine("mustache", mustacheExpress());
 app.set("views", "./views");
 app.set("view engine", "mustache");
@@ -21,31 +21,32 @@ app.use(bodyParser.urlencoded({
 
 }));
 
-//SEQUELIZE
-const todo = models.todos.build(
-     {task:'Homework', complete: true}
-);
-
-todo.save().then( function(newTodo) {
-    console.log('task is: ',newTodo.task, ' complete = ', newTodo.complete);
-});
-
-
-//TODO LIST
-
-let todos = [];
-
-app.get("/", function (req, res) {
-    res.render('index', {
-        todos: todos
+//ROUTES
+app.get("/", (req, res) => {
+    todo.findAll().then(function (todos) {
+        res.render("index", todos)
     });
 });
 
-app.post("/newtodo", (req, res) => {
-    let newTodo = req.body;
-    newTodo.complete = false;
-    todos.push(newTodo);
-    res.redirect("/");
+app.get("/todo/:id", (req, res) => {
+  models.todo
+    .findById(req.params.id)
+    .then(function(foundTodo) {
+      res.send(foundTodo);
+    })
+    .catch(function(err) {
+      res.status(500).send(err);
+    });
+});
+
+app.post("/newTodo", (req, res) => {
+    todo.build({
+        task: req.body.task,
+        complete: 'f'
+    }).save().then(function (newTodo) {
+    
+    });
+    return res.redirect("/");
 });
 
 app.post("/complete/:todo", (req, res) => {
@@ -55,9 +56,23 @@ app.post("/complete/:todo", (req, res) => {
     });
     foundTodo.complete = !foundTodo.complete;
     res.redirect("/")
-})
-
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
 });
+
+
+app.delete("/todo/:id", (req, res) => {
+  models.todo
+    .destroy({ where: { id: req.params.id } })
+    .then(function() {
+      res.send("Deleted todo");
+    })
+    .catch(function(err) {
+      res.status(500).send(err);
+    });
+});
+
+
+app.listen(8000, () => {
+  console.log(`Server listening on port ${port}.`);
+});
+
 
