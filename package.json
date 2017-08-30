@@ -1,0 +1,29 @@
+{
+  "name": "form1",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "busboy": "^0.2.14",
+    "express": "^4.15.4",
+    "express-validator": "^3.2.1",
+    "mustache-express": "^1.2.5",
+    "nodemon": "^1.11.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/erinwoody/toDoList.git"
+  },
+  "bugs": {
+    "url": "https://github.com/erinwoody/toDoList/issues"
+  },
+  "homepage": "https://github.com/erinwoody/toDoList#readme",
+  "description": ""
+}

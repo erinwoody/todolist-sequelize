@@ -1,0 +1,55 @@
+body {
+  text-align: center;
+  
+}
+
+.container {
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  margin: auto;
+}
+
+h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 3em;
+}
+
+#nameInput {
+  height: 50px;
+  width: 300px;
+  font-size: 2em;
+  border: 1px solid black;
+}
+
+button {
+  background-color: black;
+  color: white;
+  padding: 5px 15px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+button:hover {
+    background-color: white; /* Green */
+    color: black;
+}
+
+#checkbox {
+    height: 20px;
+    width: 20px;
+}
+
+input[type="checkbox"]:checked {
+  text-decoration: line-through;
+  color: blue;
+}
+
+#complete {
+  font-size: 2em;
+  color: red;
+  text-align: left;
+  margin-left: 520px;
+  margin-top: 10px;
+}
