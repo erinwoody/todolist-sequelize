@@ -1,18 +1,19 @@
-body {
-  text-align: center;
-  
-}
-
-.container {
+.wrapper {
   display: flex;
   align-content: center;
   flex-direction: column;
-  margin: auto;
+  margin: 0 auto;
 }
 
 h1 {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 3em;
+}
+
+p {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 2em;
+  color: red;
 }
 
 #nameInput {
@@ -32,24 +33,29 @@ button {
 }
 
 button:hover {
-    background-color: white; /* Green */
-    color: black;
+  background-color: white;
+  color: black;
 }
 
-#checkbox {
-    height: 20px;
-    width: 20px;
+.todolist {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
-input[type="checkbox"]:checked {
-  text-decoration: line-through;
-  color: blue;
+.buttons {
+  display: flex;
+  margin-right: 40%;
 }
 
-#complete {
+.spacing {
+  margin: 0 1rem;
+}
+
+.completed-tasks {
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 2em;
   color: red;
-  text-align: left;
-  margin-left: 520px;
-  margin-top: 10px;
 }
+

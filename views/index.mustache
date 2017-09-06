@@ -7,39 +7,74 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="/css/style.css">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
-<body class="wrapper">
-    <section class="container">
-        <h1>Todo List</h1>
-
-        <div class="inputbox">
-            <form action="/newtodo" method="post">
-            <label for="nameInput"></label>
+<body>
+    <section class="wrapper">
+        <form action="/newtodo" method="post" class="inputbox">
             <input id="nameInput" type="text" name="task" placeholder="Add a Todo" required>
             <button type="submit">Add</button>
+        </form>
+
+        <h1>Todo List</h1>
+
+        <wrapper>
+            <ul style="list-style: none">
+                {{#todos}} {{^complete}}
+                <li>
+                    <section class="todolist">
+                        <div>
+                            <p>{{task}}</p>
+                        </div>
+
+                        <div class="buttons">
+                            <form action="/complete/{{id}}" method="POST">
+                                <button type="submit" class="complete-task spacing" name="id" value="{{task}}"><i class="fa fa-check" aria-hidden="true"></i></button>
+                            </form>
+
+                            <form action="/deleteOne/{{id}}" method="POST">
+                                <button name="task" class="delete-task spacing"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                            </form>
+                            <button class="edit-task spacing" onclick="toggleVisible(display_{{id}});"><i class="fa fa-pencil" aria-hidden="true"></i></button>
+                            <div id="display_{{id}}" style="visibility: hidden;">
+                                <form action="/edit/{{id}}" method="POST">
+                                    <input class="task" value="{{task}}" name="task"><button class="spacing" type="submit"
+                                        onclick="toggleHidden(display_{{id}})">Done</button>
+                                </form>
+                            </div>
+                        </div>
+
+                    </section>
+                </li>
+                {{/complete}} {{/todos}}
+
+            </ul>
+        </wrapper>
+
+        <wrapper>
+            <h1>Completed Tasks:</h1>
+            <ul>
+                {{#todos}} {{#complete}}
+                <li class="completed-tasks">{{task}}</li>
+                {{/complete}} {{/todos}}
+            </ul>
+
+            <form action="/deleteCompleted" method="POST">
+                <button type="submit" name="task">Delete Completed</button>
             </form>
-        </div>
 
-        <div class="todos">
-
-                {{#todos}} 
-                {{#complete}}
-                
-                {{task}}
-                {{/complete}}
-                {{^complete}}
-                
-                <form action="/complete/{{task}}" method="POST" id="complete"> 
-                 <input type="checkbox" id="checkbox"></input> 
-                {{task}} 
-                </form>  
-                
-                {{/complete}}
-                {{/todos}}
-        </div>
+        </wrapper>
     </section>
+    <script>
+        function toggleVisible(x) {
+            x.style.visibility = 'visible';
+        }
+        function toggleHidden(x) {
+            x.style.visibility = 'hidden';
+        }
+    </script>
 </body>
+
 </html>
